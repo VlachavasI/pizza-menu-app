@@ -1,0 +1,12 @@
+pizza-menu {
+  max-width: 640px;
+  margin: 40px auto;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.pizza-menu h2 {
+  margin-bottom: 16px;
+  font-size: 1.4rem;
+  color: #1f2a33;
+}

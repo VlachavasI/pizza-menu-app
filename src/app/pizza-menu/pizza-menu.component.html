@@ -1,0 +1,12 @@
+<section class="pizza-menu">
+  <h2>Pizza</h2>
+  @for (item of menuItems; track item.itemId) {
+    <app-pizza-item
+      [itemId]="item.itemId"
+      [name]="item.name"
+      [initialSizes]="item.sizes"
+      [expanded]="expandedItemId() === item.itemId"
+      (toggleExpand)="onToggleExpand($event)"
+    />
+  }
+</section>

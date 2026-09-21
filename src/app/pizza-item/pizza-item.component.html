@@ -1,0 +1,59 @@
+<div class="item-card" [class.expanded]="expanded()">
+  <button
+    type="button"
+    class="item-header"
+    (click)="onHeaderClick()"
+    [attr.aria-expanded]="expanded()"
+    [attr.aria-controls]="'sizes-' + itemId()"
+  >
+    <span class="chevron" [class.chevron-up]="expanded()" aria-hidden="true"
+      >▾</span
+    >
+    <span class="item-name">{{ name() }}</span>
+  </button>
+
+  @if (expanded()) {
+    <div class="item-body" [id]="'sizes-' + itemId()">
+      <div class="sizes-row">
+        @for (size of state(); track size.sizeId) {
+          <div class="size-col">
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                [checked]="size.checked"
+                (change)="
+                  onCheckboxChange(size.sizeId, $any($event.target).checked)
+                "
+                [attr.aria-label]="'Enable ' + size.name + ' for ' + name()"
+              />
+            </label>
+            <span class="size-name">{{ size.name }}</span>
+            <label class="price-input" [class.disabled]="!size.checked">
+              <span class="currency" aria-hidden="true">$</span>
+              <input
+                type="text"
+                inputmode="decimal"
+                [value]="size.price.toFixed(2)"
+                [disabled]="!size.checked"
+                (input)="onPriceInput(size.sizeId, $any($event.target).value)"
+                [attr.aria-label]="name() + ' ' + size.name + ' price'"
+              />
+            </label>
+          </div>
+        }
+      </div>
+
+      @if (hasChanges()) {
+        <button
+          type="button"
+          class="undo-btn"
+          (click)="onUndo()"
+          [attr.aria-label]="'Undo changes for ' + name()"
+          title="Undo changes"
+        >
+          ↺
+        </button>
+      }
+    </div>
+  }
+</div>
